@@ -7,14 +7,34 @@ option objc_class_prefix = "HLW";
 
 package br.com.zupacademy.giovannimoratto.pix;
 
-service KeyManagerGrpcService {
-  rpc send (KeyManagerGrpcRequest) returns (KeyManagerGrpcReply) {}
+service KeyManagerRegistrarGrpcService {
+  rpc registrar (RegistrarChavePixRequest) returns (RegistrarChavePixResponse) {}
 }
 
-message KeyManagerGrpcRequest {
-  string name = 1;
+enum TipoDeChaveGrpc{
+  TIPO_DE_CHAVE_DESCONHECIDA = 0;
+  CPF = 1;
+  CELULAR = 2;
+  EMAIL = 3;
+  ALEATORIA = 4;
 }
 
-message KeyManagerGrpcReply {
-  string message = 1;
+enum TipoDeContaGrpc {
+  TIPO_CONTA_DESCONHECIDA = 0;
+  CONTA_CORRENTE = 1;
+  CONTA_POUPANCA = 2;
+}
+
+/**
+ * Registra chave
+ */
+message RegistrarChavePixRequest {
+  string clienteId = 1;
+  TipoDeChaveGrpc tipoDeChave = 2;
+  string chave = 3;
+  TipoDeContaGrpc tipoDeConta = 4;
+}
+
+message RegistrarChavePixResponse {
+  string pixId = 1;
 }

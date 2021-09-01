@@ -8,3 +8,19 @@ services:
     image: "public.ecr.aws/d8b2x5c9/orange-stack-sat-itau-erp"
     ports:
       - 9091:9091
+
+  postgres:
+    image: 'postgres:alpine'
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: db_desafio_pix
+      POSTGRES_HOST: postgres
+      POSTGRES_URL: jdbc:postgresql://postgres:5432/db_desafio_pix
+
+volumes:
+  postgres-volume:
